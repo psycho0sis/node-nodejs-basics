@@ -2,7 +2,7 @@ import path from "path";
 import { readFile, writeFile } from "fs";
 import { Buffer } from "node:buffer";
 
-import { __filename, __dirname } from "./constants.js";
+import { __dirname } from "./constants.js";
 
 const create = async () => {
   const pathToTheFile = path.join(__dirname, "/files", "fresh.txt");

@@ -1,7 +1,7 @@
 import path from "path";
 import { readFile, rename as fsRename } from "fs";
 
-import { __filename, __dirname } from "./constants.js";
+import { __dirname } from "./constants.js";
 
 const rename = async () => {
   const pathToTheWrongFile = path.join(__dirname, "/files/wrongFilename.txt");

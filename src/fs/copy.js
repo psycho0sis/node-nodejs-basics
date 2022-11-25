@@ -1,7 +1,7 @@
 import path from "path";
 import { access, cp } from "fs";
 
-import { __filename, __dirname } from "./constants.js";
+import { __dirname } from "./constants.js";
 
 const copy = async () => {
   const pathToTheFolder = path.join(__dirname, "/files");
