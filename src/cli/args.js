@@ -1,5 +1,10 @@
 const parseArgs = () => {
-    // Write your code here 
+  process.argv
+    .slice(2)
+    .forEach(
+      (item, i, array) =>
+        item.includes("--") && console.log(`${item} is ${array[i + 1]}`)
+    );
 };
 
 parseArgs();
