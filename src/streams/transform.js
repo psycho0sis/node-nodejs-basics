@@ -1,20 +1,14 @@
-import path from "path";
+import { EOL } from "os";
 import { Transform, pipeline } from "stream";
-import { createWriteStream, createReadStream } from "fs";
 
 import { __dirname } from "./constants.js";
 
 const transform = async () => {
-  const pathToTheFileForReading = path.join(__dirname, "/files/fileToRead.txt");
-  const pathToTheFileForWriting = path.join(
-    __dirname,
-    "/files/fileToWrite.txt"
-  );
-
   const revert = new Transform({
     transform(chunk, encoding, callback) {
-      const data = chunk.toString().split("").reverse().join("");
-      callback(null, data);
+      const data =
+        chunk.toString().replace(EOL, "").split("").reverse().join("") + EOL;
+      callback(null, data + EOL);
     },
   });
 
