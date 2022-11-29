@@ -1,18 +1,25 @@
 import path from "path";
-import { readFile, writeFile } from "fs";
+import { constants } from "fs";
+import { access, writeFile } from "fs/promises";
 
-import { __dirname } from "./constants.js";
+import { __dirname, MESSAGE_ERROR } from "./constants.js";
 
 const create = async () => {
   const pathToTheFile = path.join(__dirname, "/files", "fresh.txt");
 
-  readFile(pathToTheFile, (err) => {
-    if (!err) throw new Error("FS operation failed");
-  });
-
-  writeFile(pathToTheFile, "I am fresh and young", "utf-8", (err) => {
-    if (err) throw err;
-  });
+  try {
+    await access(pathToTheFile, constants.F_OK);
+    throw new Error(MESSAGE_ERROR);
+  } catch (err) {
+    if (err.message === MESSAGE_ERROR) {
+      throw new Error(MESSAGE_ERROR);
+    } else {
+      await writeFile(pathToTheFile, "I am fresh and young", {
+        encoding: "utf8",
+      });
+      console.log("File was created.");
+    }
+  }
 };
 
 await create();

@@ -1,18 +1,17 @@
 import path from "path";
-import { readFile, unlink } from "fs";
+import { unlink } from "fs/promises";
 
-import { __dirname } from "./constants.js";
+import { __dirname, MESSAGE_ERROR } from "./constants.js";
 
 const remove = async () => {
   const pathToTheFile = path.join(__dirname, "/files/fileToRemove.txt");
 
-  readFile(pathToTheFile, (err) => {
-    if (err) throw new Error("FS operation failed");
-  });
-
-  unlink(pathToTheFile, (err) => {
-    if (err) throw err;
-  });
+  try {
+    await unlink(pathToTheFile);
+    console.log("File was deleted.");
+  } catch (error) {
+    throw new Error(MESSAGE_ERROR);
+  }
 };
 
 await remove();
