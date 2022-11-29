@@ -1,5 +1,5 @@
 import path from "path";
-import { readFile } from "fs";
+import { readFile } from "fs/promises";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
 
@@ -12,10 +12,12 @@ const calculateHash = async () => {
     "/files/fileToCalculateHashFor.txt"
   );
 
-  readFile(pathToTheFile, (err, data) => {
-    if (err) throw err;
-    console.log(createHash("sha256").update(data.toString()).digest("hex"));
-  });
+  try {
+    const data = await readFile(pathToTheFile, { encoding: "utf-8" });
+    console.log(createHash("sha256").update(data).digest("hex"));
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 await calculateHash();
