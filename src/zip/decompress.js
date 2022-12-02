@@ -15,6 +15,7 @@ const decompress = async () => {
   const unGzip = createUnzip();
 
   readableStream.pipe(unGzip).pipe(writeableStream);
+  console.log("File was decompressed");
 };
 
 await decompress();

@@ -9,8 +9,8 @@ const rename = async () => {
 
   try {
     await giveNewName(pathToTheWrongFile, pathToTheCorrectFile);
-  } catch {
     console.log("File was renamed.");
+  } catch {
     throw new Error(MESSAGE_ERROR);
   }
 };

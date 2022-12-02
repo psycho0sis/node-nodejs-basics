@@ -14,7 +14,10 @@ const calculateHash = async () => {
 
   try {
     const data = await readFile(pathToTheFile, { encoding: "utf-8" });
-    console.log(createHash("sha256").update(data).digest("hex"));
+    const hex = createHash("sha256").update(data).digest("hex");
+
+    console.log("Hash was created: ");
+    console.log(hex);
   } catch (err) {
     console.log(err);
   }

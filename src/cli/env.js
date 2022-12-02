@@ -1,10 +1,15 @@
 import { EOL } from "os";
 
 const parseEnv = () => {
-  Object.keys(process.env)
+  const processEnvVariablesWithRssPrefix = Object.keys(process.env)
     .filter((key) => key.includes("RSS_"))
-    .forEach((variable) => console.log(`${variable}=${process.env[variable]}`));
+    .reduce((acc, item) => {
+      acc.push(`${item}=${process.env[item]}`);
+      return acc;
+    }, [])
+    .join("; ");
 
+  console.log(processEnvVariablesWithRssPrefix);
   console.log(EOL + "The end.");
 };
 
