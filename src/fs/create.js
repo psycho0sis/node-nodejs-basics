@@ -1,5 +1,24 @@
+import path from "path";
+import { access, writeFile } from "fs/promises";
+
+import { __dirname, MESSAGE_ERROR } from "./constants.js";
+
 const create = async () => {
-    // Write your code here 
+  const pathToTheFile = path.join(__dirname, "/files", "fresh.txt");
+
+  try {
+    await access(pathToTheFile);
+    throw new Error(MESSAGE_ERROR);
+  } catch (err) {
+    if (err.message === MESSAGE_ERROR) {
+      throw new Error(MESSAGE_ERROR);
+    } else {
+      await writeFile(pathToTheFile, "I am fresh and young", {
+        encoding: "utf8",
+      });
+      console.log("File was created.");
+    }
+  }
 };
 
 await create();

@@ -1,5 +1,22 @@
+import path from "path";
+import { createReadStream, createWriteStream } from "fs";
+import { createGzip } from "zlib";
+
+import { __dirname } from "./constants.js";
+
 const compress = async () => {
-    // Write your code here 
+  const pathToTheFile = path.join(__dirname, "/files/fileToCompress.txt");
+  const pathToGzFile = path.join(__dirname, "/files/archive.gz");
+
+  const readableStream = createReadStream(pathToTheFile, "utf-8");
+
+  const writeableStream = createWriteStream(pathToGzFile);
+
+  const gzip = createGzip();
+
+  readableStream.pipe(gzip).pipe(writeableStream);
+
+  console.log("File was compressed");
 };
 
 await compress();
